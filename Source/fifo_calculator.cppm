@@ -246,7 +246,7 @@ namespace fifo_calculator
                         }
                         else
                         {
-                            throw std::runtime_error{ std::format("Unexpected buy or sell value: '{}'\n") };
+                            throw std::runtime_error{ std::format("Unexpected buy or sell value: '{}'\n", value) };
                         }
                     }
 
