@@ -48,5 +48,14 @@ int main(int const argc, char const* const* const argv)
     }
     std::cout << std::endl;
 
+    {
+        double total_profit = 0.0;
+        for (Result const& result : results)
+        {
+            total_profit += result.volume * (result.sell_price - result.buy_price);
+        }
+        std::cout << total_profit << std::endl;
+    }
+
     return 0;
 }
