@@ -55,13 +55,15 @@ namespace fifo_calculator
     {
         output_stream << "{";
         {
-            output_stream << "\"buy_date\":" << result.buy_date << ",";
-            output_stream << "\"sell_date\":" << result.sell_date << ",";
+            output_stream << "\"buy_date\":" << "\"" << result.buy_date << "\"" << ",";
+            output_stream << "\"sell_date\":" << "\"" << result.sell_date << "\"" << ",";
             output_stream << "\"volume\":" << result.volume << ",";
             output_stream << "\"buy_price\":" << result.buy_price << ",";
             output_stream << "\"buy_fee\":" << result.buy_fee << ",";
+            output_stream << "\"buy_total\":" << result.buy_price * result.volume << ",";
             output_stream << "\"sell_price\":" << result.sell_price << ",";
-            output_stream << "\"sell_fee\":" << result.sell_fee;
+            output_stream << "\"sell_fee\":" << result.sell_fee << ",";
+            output_stream << "\"sell_total\":" << result.sell_price * result.volume;
         }
         output_stream << "}";
 
@@ -195,6 +197,12 @@ namespace fifo_calculator
     {
         std::pmr::vector<Entry> buy_entries{ output_allocator };
         std::pmr::vector<Entry> sell_entries{ output_allocator };
+
+        // Discard first line which specifies columns
+        {
+            std::string line;
+            std::getline(input_stream, line, '\n');
+        }
 
         while (input_stream.good())
         {

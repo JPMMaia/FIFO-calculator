@@ -18,11 +18,11 @@ int main(int const argc, char const* const* const argv)
 
     Entry_format const entry_format
     {
-        .time_column_index = 3,
-        .volume_column_index = 9,
-        .price_column_index = 6,
-        .fee_column_index = 8,
-        .buy_or_sell_column_index = 4,
+        .time_column_index = 4,
+        .volume_column_index = 10,
+        .price_column_index = 7,
+        .fee_column_index = 9,
+        .buy_or_sell_column_index = 5,
         .separator = ',',
     };
 
@@ -42,11 +42,18 @@ int main(int const argc, char const* const* const argv)
         {}
     );
 
-    for (Result const& result : results)
+    std::cout << "{\n    \"transactions\": [\n";
+    for (std::size_t index = 0; index < results.size(); ++index)
     {
-        std::cout << result << '\n';
+        Result const& result = results[index];
+        std::cout << "        " << result;
+
+        if (index + 1 < results.size())
+            std::cout << ',';
+    
+        std::cout << '\n';
     }
-    std::cout << std::endl;
+    std::cout << "    ]\n}" << std::endl;
 
     {
         double total_profit = 0.0;
